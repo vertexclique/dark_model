@@ -1,0 +1,66 @@
+
+mdp
+
+module JONAS2019
+
+    jonas2019 : [0..1] init 0;
+
+    [] jonas2019=0 -> 0.9:(jonas2019'=1)  + 0.1:(jonas2019'=0);
+    [] jonas2019=1 & mikkel1986=1 -> (jonas2019'=0);
+
+endmodule
+
+module JONAS1986
+
+    jonas1986 : [0..1] init 0;
+
+    [] jonas1986=0 & jonas2019=1 -> 0.9:(jonas1986'=1) + 0.1:(jonas1986'=0);
+    [] jonas1986=1 & mikkel2019=1 -> (jonas1986'=0);
+
+endmodule
+
+module JONAS2052
+
+    jonas2052 : [0..1] init 0;
+
+    [] jonas2052=0 & jonas2019=0 & jonas1986=1 -> (jonas2052'=1);
+    [] jonas2052=1 -> (jonas2052'=1);
+
+endmodule
+
+module MIKKEL2019
+
+    mikkel2019 : [0..1] init 0;
+
+    [] mikkel2019=0 -> 0.1:(mikkel2019'=1) + 0.9:(mikkel2019'=0);
+    [] mikkel2019=1 & jonas1986!=1 -> (mikkel2019'=1);
+    // [] mikkel1986=1 & ulrich1953=1
+
+endmodule
+
+module MIKKEL1986
+
+    mikkel1986 : [0..1] init 0;
+
+    [] mikkel1986=0 & mikkel2019=1 -> 0.9:(mikkel1986'=1) + 0.1:(mikkel1986'=0);
+    [] mikkel1986=1 & ulrich1953=1 -> (mikkel1986'=1);
+
+endmodule
+
+module ULRICH2019
+
+    ulrich2019 : [0..1] init 0;
+
+    [] ulrich2019=0 -> 0.5:(ulrich2019'=1) + 0.5:(ulrich2019'=0);
+    [] ulrich2019=0 & mikkel1986!=1 -> (ulrich2019'=0);
+    [] ulrich2019=1 & mikkel2019=1 -> (ulrich2019'=1);
+
+endmodule
+
+module ULRICH1953
+
+    ulrich1953 : [0..1] init 0;
+
+    [] ulrich1953=0 -> (ulrich1953'=1);
+
+endmodule
